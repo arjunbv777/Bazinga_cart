@@ -1,9 +1,12 @@
 package com.bazinga.modal;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -17,6 +20,15 @@ public class User {
     private String role;
     private boolean enabled;
     
+    @OneToMany(mappedBy = "user")
+	Set<Orders> orderDetails;
+    
+	public Set<Orders> getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(Set<Orders> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 	public Long getId() {
 		return id;
 	}
