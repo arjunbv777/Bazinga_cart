@@ -13,4 +13,5 @@ public interface OrderService {
 	public List<Product> takeOrders(Product product, User user);
 	public boolean removeOrder(Long id);
 	public List<Product> updateOrder(Long id,int quantity);
+	public Set<Orders> getOrderedProductByUSer(String user);
 }

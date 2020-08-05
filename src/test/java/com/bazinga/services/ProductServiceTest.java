@@ -22,20 +22,21 @@ class ProductServiceTest {
 
 	@Autowired
 	ProductRepository productRepo;
-	
+
 	@Autowired
 	ProductService productService;
 
-	
 	@Test
 	void testGetProducts() {
-		assertEquals(9, productRepo.findAll().size(), "Total 9 products available"); 
-		productRepo.findAll().forEach(e -> { System.out.println(e.toString());});
+		assertEquals(9, productRepo.findAll().size(), "Total 9 products available");
+		productRepo.findAll().forEach(e -> {
+			System.out.println(e.toString());
+		});
 	}
 
 	@Test
 	void testGetProduct() {
-		assertEquals(productRepo.findById((long) 1).get().getQuantity(), 10,"Total quantity of the produc is 10");
+		assertEquals(productRepo.findById((long) 1).get().getQuantity(), 10, "Total quantity of the produc is 10");
 	}
 
 	@Test

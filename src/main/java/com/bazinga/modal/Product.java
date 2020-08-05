@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Product {
 
@@ -15,11 +17,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 
-	private String productname;
+	private String name;
 	private String photourl;
 	private float price;
 	private int quantity;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	Set<Orders> orderDetails;
 
@@ -40,11 +43,11 @@ public class Product {
 	}
 
 	public String getProductname() {
-		return productname;
+		return name;
 	}
 
 	public void setProductname(String productname) {
-		this.productname = productname;
+		this.name = productname;
 	}
 
 	public String getPhotourl() {
@@ -78,7 +81,7 @@ public class Product {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((photourl == null) ? 0 : photourl.hashCode());
 		result = prime * result + Float.floatToIntBits(price);
-		result = prime * result + ((productname == null) ? 0 : productname.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + quantity;
 		return result;
 	}
@@ -104,10 +107,10 @@ public class Product {
 			return false;
 		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
 			return false;
-		if (productname == null) {
-			if (other.productname != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!productname.equals(other.productname))
+		} else if (!name.equals(other.name))
 			return false;
 		if (quantity != other.quantity)
 			return false;
@@ -116,7 +119,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", productname=" + productname + ", photourl=" + photourl + ", price=" + price
+		return "Product [id=" + id + ", productname=" + name + ", photourl=" + photourl + ", price=" + price
 				+ ", quantity=" + quantity + "]";
 	}
 

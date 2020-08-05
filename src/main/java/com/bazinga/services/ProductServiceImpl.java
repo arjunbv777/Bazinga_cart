@@ -10,12 +10,11 @@ import com.bazinga.modal.Product;
 import com.bazinga.modal.ProductRepository;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductRepository productRepo;
-	
-	
+
 	public boolean isProductAvailable(Long id) {
 		return getProduct(id).get().getQuantity() >= 1;
 	}
@@ -31,17 +30,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public boolean updateQuantity(Long id, boolean addAndRemoveQuantity) {
-		Product product= getProduct(id).get();
-		if(addAndRemoveQuantity) {			
-			product.setQuantity(product.getQuantity() - 1);
+	public boolean updateQuantity(Long id, boolean addAndRemoveQuantity, Long quantity) {
+		Product product = getProduct(id).get();
+		if (addAndRemoveQuantity) {
+			product.setQuantity((int) (product.getQuantity() - quantity));
 			return true;
-		}else {
-			product.setQuantity(product.getQuantity() + 1);
+		} else {
+			product.setQuantity((int) (product.getQuantity() + quantity));
 			return true;
 		}
 	}
-	
-	
 
 }

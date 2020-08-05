@@ -24,12 +24,12 @@ public class UserDetailsImpl implements UserDetails {
 		this.userName = user.getUsername();
 		this.password = user.getPassword();
 		this.isActive = user.isEnabled();
-		this.authorities = Arrays.stream(user.getRole().split(","))
-				.map(SimpleGrantedAuthority::new)
+		this.authorities = Arrays.stream(user.getRole().split(",")).map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 	}
 
-	public UserDetailsImpl() {}
+	public UserDetailsImpl() {
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

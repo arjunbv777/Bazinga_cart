@@ -6,12 +6,12 @@ insert  into `user`(`id`,`enabled`,`password`,`role`,`username`)
 
 				
 				
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (1,'Brown Bread ','','20.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (2,'Milk ','','44.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (3,'Rice ','','44.40','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (4,'Ice Cream ','','20.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (5,'Sugur ','','25.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (6,'Apple ','','26.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (7,'Bottle ','','33.0','0');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (8,'Cream ','','40.0','10');
-insert into `product`(`id`,`productname`,`photourl`,`price`,`quantity`)	values (9,'Colgate ','','50.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (1,'Brown Bread ','','20.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (2,'Milk ','','44.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (3,'Rice ','','44.40','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (4,'Ice Cream ','','20.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (5,'Sugur ','','25.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (6,'Apple ','','26.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (7,'Bottle ','','33.0','0');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (8,'Cream ','','40.0','10');
+insert into `product`(`id`,`name`,`photourl`,`price`,`quantity`)	values (9,'Colgate ','','50.0','10');

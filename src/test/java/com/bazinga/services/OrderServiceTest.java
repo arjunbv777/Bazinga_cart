@@ -29,60 +29,60 @@ import com.bazinga.modal.UserRepository;
 @RunWith(SpringRunner.class)
 @TestMethodOrder(OrderAnnotation.class)
 class OrderServiceTest {
-	
+
 	@Autowired
 	OrderService orderService;
-	
+
 	@Autowired
 	ProductRepository prorepo;
-	
-	
+
 	@Autowired
 	UserRepository userRepo;
-		
+
 	@Test
 	@Order(1)
 	void testTakeOrders() {
-		List<Product> orderedProduct = orderService.takeOrders(prorepo.getOne((long) 1), userRepo.findByUsername("user1").get());
+		List<Product> orderedProduct = orderService.takeOrders(prorepo.getOne((long) 1),
+				userRepo.findByUsername("user1").get());
 		assertEquals(orderedProduct.size(), 1);
 	}
-	
-	
+
 	@Test
 	@Order(2)
 	void testGetOrderedProductByUSer() {
-		Set<Orders> orders= orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
-		//System.out.println(orders.toString());
-		orders.forEach(e -> { System.out.println(e.toString());});
+		Set<Orders> orders = orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
+		// System.out.println(orders.toString());
+		orders.forEach(e -> {
+			System.out.println(e.toString());
+		});
 		assertEquals(1, orders.size());
 	}
 
 	@Test
 	@Order(3)
 	void testUpdateOrder() {
-		Set<Orders> orders= orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
+		Set<Orders> orders = orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
 		System.out.println(userRepo.findByUsername("user1").get().toString());
-		Iterator<Orders> iter= orders.iterator();
+		Iterator<Orders> iter = orders.iterator();
 		List<Product> produts = orderService.updateOrder(iter.next().getId(), 1);
 		System.out.println(produts);
 		assertEquals(1, produts.size());
 	}
-	
+
 	@Test
 	@Order(4)
 	void testRemoveOrder() {
-		Set<Orders> orders= orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
+		Set<Orders> orders = orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
 		System.out.println(userRepo.findByUsername("user1").get().toString());
-		Iterator<Orders> iter= orders.iterator();
+		Iterator<Orders> iter = orders.iterator();
 		boolean produts = orderService.removeOrder(iter.next().getId());
 		System.out.println(produts);
 		assertEquals(0, orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get()).size());
 	}
 
-	
 	@Test
 	void testTakeOrdersWhichQuantityNotAvail() {
 		orderService.takeOrders(prorepo.getOne((long) 7), userRepo.findByUsername("user1").get());
-		
+
 	}
 }

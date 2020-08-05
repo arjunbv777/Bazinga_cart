@@ -10,8 +10,8 @@
 
 
 <form method="POST" action="/login">
-	User Name : <input type="text" name="username" value="user"/><br><br>
-	Password  : <input type="password" name="password" value="password"/><br><br>
+	User Name : <input type="text" name="username" /><br><br>
+	Password  : <input type="password" name="password" /><br><br>
 	<input type="submit" name="submit"/>
 </form>
 

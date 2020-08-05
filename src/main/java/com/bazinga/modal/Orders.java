@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Orders {
 
@@ -19,10 +22,12 @@ public class Orders {
 	private LocalDateTime updatedAt;
 	private int orderQuantity;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	User user;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	Product product;
@@ -118,8 +123,5 @@ public class Orders {
 		return "Orders [id=" + id + ", updatedAt=" + updatedAt + ", orderQuantity=" + orderQuantity + ", user=" + user
 				+ ", product=" + product + "]";
 	}
-	
-	
-	
-	
+
 }

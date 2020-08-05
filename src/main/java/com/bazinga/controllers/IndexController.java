@@ -9,16 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-	@RequestMapping(value={"/index","/"})
-	public ModelAndView defaultHome(Principal principal) {
-		final String currentUser = principal.getName();//SecurityContextHolder.getContext().getAuthentication().getName();
+	@RequestMapping(value = { "/index", "/" })
+	public String defaultHome(Principal principal) {
+		final String currentUser = principal.getName();// SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println(currentUser);
-		return new ModelAndView("index").addObject("username", currentUser);
+		return "index";
 	}
 
 	@RequestMapping("/login")
 	public ModelAndView login() {
 		return new ModelAndView("login");
 	}
-	 
+
 }
