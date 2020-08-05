@@ -42,12 +42,12 @@ public class Product {
 		this.id = id;
 	}
 
-	public String getProductname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setProductname(String productname) {
-		this.name = productname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPhotourl() {

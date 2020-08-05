@@ -1,0 +1,1 @@
+{"version":3,"sources":["ProductsGrid.module.scss"],"names":[],"mappings":"AACI,6BACI,YAAa,CACb,iDAAoD,CACpD,aAAc","file":"main.194c7604.chunk.css","sourcesContent":[".p {\r\n    &__grid {\r\n        display: grid;\r\n        grid-template-columns: repeat(2, minmax(300px, 1fr));\r\n        grid-gap: 15px;\r\n    }\r\n}"]}

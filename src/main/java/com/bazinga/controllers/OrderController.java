@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bazinga.modal.CartDetails;
 import com.bazinga.modal.Orders;
 import com.bazinga.modal.Product;
 import com.bazinga.modal.UserRepository;
@@ -28,29 +29,42 @@ public class OrderController {
 	@Autowired
 	UserRepository userRepo;
 
-	@GetMapping("orders")
+	@GetMapping("/orders")
 	public ResponseEntity<Set<Orders>> getOrders(Principal principal) {
 		return ResponseEntity.ok(orderService.getOrderedProductByUSer(principal.getName()));
 	}
 
-	@PutMapping("order")
-	public ResponseEntity<List<Product>> createOrder(Principal principal, @RequestBody Product product) {
+	@PutMapping("/order")
+	public ResponseEntity<Orders> createOrder(Principal principal, @RequestBody Product product) {
 		System.out.println("Product is " + product.toString());
-		return new ResponseEntity<List<Product>>(
-				orderService.takeOrders(product, userRepo.findByUsername(principal.getName()).get()), HttpStatus.OK);
+		return new ResponseEntity<Orders>(
+				orderService.takeOrder(product, userRepo.findByUsername(principal.getName()).get()), HttpStatus.OK);
 	}
 
-	@GetMapping("updateorder/{orderid}")
+	@GetMapping("/updateorder/{orderid}")
 	public ResponseEntity<List<Product>> increaseQuantityToOrder(Principal principal,
 			@PathVariable("orderid") Long orderid) {
 		System.out.println("Order id " + orderid);
-		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, 1), HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, 1,true), HttpStatus.OK);
 	}
 
-	@DeleteMapping("order/{orderid}")
-	public ResponseEntity<Boolean> removeOrder(Principal principal, @PathVariable("orderid") Long orderid) {
+	@GetMapping("/removeorder/{orderid}")
+	public ResponseEntity<List<Product>> decreaseQuantityToOrder(Principal principal,
+			@PathVariable("orderid") Long orderid) {
+		System.out.println("Order id " + orderid);
+		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, -1 , false), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/order/{orderid}")
+	public ResponseEntity<Boolean> deleteOrder(Principal principal, @PathVariable("orderid") Long orderid) {
 		System.out.println("Order id " + orderid);
 		return new ResponseEntity(orderService.removeOrder(orderid), HttpStatus.OK);
 	}
+	
+	@GetMapping("/cartDetails")
+	public ResponseEntity<CartDetails> createOrder(Principal principal) {
+		
+		return new ResponseEntity<CartDetails>(new CartDetails(), HttpStatus.OK);
+	} 
 
 }

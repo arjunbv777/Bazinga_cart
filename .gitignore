@@ -25,6 +25,8 @@ bin
 gradle
 gradlew
 
+node_modules
+build
 .classpath
 .project
 

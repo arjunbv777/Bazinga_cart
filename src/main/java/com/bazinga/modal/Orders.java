@@ -27,7 +27,7 @@ public class Orders {
 	@JoinColumn(name = "user_id")
 	User user;
 
-	@JsonManagedReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	Product product;

@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.bazinga.modal.CartDetails;
 import com.bazinga.modal.Orders;
 import com.bazinga.modal.Product;
 import com.bazinga.modal.ProductRepository;
@@ -42,9 +43,9 @@ class OrderServiceTest {
 	@Test
 	@Order(1)
 	void testTakeOrders() {
-		List<Product> orderedProduct = orderService.takeOrders(prorepo.getOne((long) 1),
+		CartDetails orderedProduct = orderService.takeOrders(prorepo.getOne((long) 1),
 				userRepo.findByUsername("user1").get());
-		assertEquals(orderedProduct.size(), 1);
+		assertEquals(orderedProduct.getOrders().size(), 1);
 	}
 
 	@Test
@@ -64,7 +65,7 @@ class OrderServiceTest {
 		Set<Orders> orders = orderService.getOrderedProductByUSer(userRepo.findByUsername("user1").get());
 		System.out.println(userRepo.findByUsername("user1").get().toString());
 		Iterator<Orders> iter = orders.iterator();
-		List<Product> produts = orderService.updateOrder(iter.next().getId(), 1);
+		List<Product> produts = orderService.updateOrder(iter.next().getId(), 1,true);
 		System.out.println(produts);
 		assertEquals(1, produts.size());
 	}

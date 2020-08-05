@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bazinga.modal.CartDetails;
 import com.bazinga.modal.Orders;
 import com.bazinga.modal.OrdersRepository;
 import com.bazinga.modal.Product;
@@ -35,23 +36,23 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public List<Product> takeOrders(Product product, User user) {
-
+	public CartDetails takeOrders(Product product, User user) {
+		Orders orders;
 		if (productService.isProductAvailable(product.getId())) {
-			Orders orders = new Orders();
+			orders = new Orders();
 			orders.setUser(user);
 			orders.setProduct(product);
 			orders.setUpdatedAt(LocalDateTime.now());
 			orders.setOrderQuantity(1);
 			productService.updateQuantity(product.getId(), true, (long) 1);
-			orderrepo.save(orders);
-
+			orders =  orderrepo.save(orders);
+			System.out.println(orders.toString());
 		} else {
 			throw new RuntimeException("Product not available");
 		}
-		return productService.getProducts();
+		return new CartDetails(orders,  productService.getProducts());
 	}
-
+  
 	@Override
 	@Transactional
 	public boolean removeOrder(Long id) {
@@ -63,17 +64,43 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public List<Product> updateOrder(Long id, int quantity) {
-		Orders order = orderrepo.getOne(id);
-		productService.updateQuantity(order.getProduct().getId(), true, (long) 1);
-		order.setOrderQuantity(order.getOrderQuantity() + quantity);
-		orderrepo.save(order);
-		return productService.getProducts();
+	public List<Product> updateOrder(Long id, int quantity, boolean increaseAndDecrease) {
+
+		if (increaseAndDecrease) {
+			Orders order = orderrepo.getOne(id);
+			productService.updateQuantity(order.getProduct().getId(), true, (long) 1);
+			order.setOrderQuantity(order.getOrderQuantity() + quantity);
+			orderrepo.save(order);
+			return productService.getProducts();
+		} else {
+			Orders order = orderrepo.getOne(id);
+			productService.updateQuantity(order.getProduct().getId(), true, (long) -1);
+			order.setOrderQuantity(order.getOrderQuantity() + quantity);
+			orderrepo.save(order);
+			return productService.getProducts();
+		}
 	}
 
 	@Override
 	public Set<Orders> getOrderedProductByUSer(String user) {
 		return this.getOrderedProductByUSer(userrepo.findByUsername(user).get());
+	}
+
+	@Override
+	public Orders takeOrder(Product product, User user) {
+		if (productService.isProductAvailable(product.getId())) {
+			Orders orders = new Orders();
+			orders.setUser(user);
+			orders.setProduct(product);
+			orders.setUpdatedAt(LocalDateTime.now());
+			orders.setOrderQuantity(1);
+			productService.updateQuantity(product.getId(), true, (long) 1);
+			orders =  orderrepo.save(orders);
+			System.out.println(orders.toString());
+			return orders;
+		} else {
+			throw new RuntimeException("Product not available");
+		}
 	}
 
 }
