@@ -1,13 +1,13 @@
 # Bazinga_cart
 Bazinga cart is a E commerce site for online shopping  
 
-#Spring Boot
+# Spring Boot
 Spring JPA, Security, Rest, H2
 
-#Frontend
+# Frontend
 React
 
-#Frontend build(use letest node)
+# Frontend build(use letest node)
 1. cd src/main/webapp/cart
 2. npm install 
 3. npm run build
@@ -19,6 +19,7 @@ React
     
    build/index.html to webapp/web-inf/jsp/index.jsp (only replace html content)
 
+# Backend
 6. Start spring boot app using gradle command
 7. H2 db will be initilized after starting
 8. go to http://localhost:8090/login
