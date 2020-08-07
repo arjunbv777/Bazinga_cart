@@ -17,16 +17,10 @@ const initialState = {
 const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
-  useEffect(() => {
-    axios
-      .get("/products")
-      .then((res) => {
-        res.data.forEach((e) => {
-          addProductData(e);
-        });
-      }, [])
-      .catch((error) => console.log(error));
 
+  useEffect(() => {
+
+    getAllProducts();
     axios
       .get("/orders")
       .then((res) => {
@@ -42,6 +36,7 @@ const CartContextProvider = ({ children }) => {
 
     },[]);
 
+  
   const addProductData = (payload) => {
     dispatch({ type: "ADD_PRODUCT", payload });
   };
@@ -89,15 +84,7 @@ const CartContextProvider = ({ children }) => {
         addItemsToCart(payload);
       }, [])
       .catch((error) => console.log(error));
-
-      axios
-      .get("/products")
-      .then((res) => {
-        res.data.forEach((e) => {
-          addProductData(e);
-        });
-      }, [])
-      .catch((error) => console.log(error));
+      getAllProducts();
   };
 
   const removeProduct = (payload) => {
@@ -114,9 +101,30 @@ const CartContextProvider = ({ children }) => {
     .catch((error) => console.log(error));
   };
 
-  const clearCart = () => {
-    dispatch({ type: "CLEAR" });
+  const clearCart = (payload) => {
+    console.log(payload);
+    payload.forEach((item) => {
+      axios
+      .delete("/order/"+item.orderID)
+      .then((res) => {
+        getAllProducts();
+        dispatch({ type: "CLEAR" });
+      }, [])
+      .catch((error) => console.log(error));
+    });
+     // 
   };
+
+  const getAllProducts = () => {
+    axios
+    .get("/products")
+    .then((res) => {
+      res.data.forEach((e) => {
+        addProductData(e);
+      });
+    }, [])
+    .catch((error) => console.log(error));
+  }
 
   const contextValues = {
     removeProduct,

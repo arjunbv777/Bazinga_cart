@@ -70,13 +70,16 @@ public class OrderServiceImpl implements OrderService {
 			Orders order = orderrepo.getOne(id);
 			productService.updateQuantity(order.getProduct().getId(), true, (long) 1);
 			order.setOrderQuantity(order.getOrderQuantity() + quantity);
-			orderrepo.save(order);
+			order = orderrepo.save(order);
 			return productService.getProducts();
 		} else {
 			Orders order = orderrepo.getOne(id);
 			productService.updateQuantity(order.getProduct().getId(), true, (long) -1);
 			order.setOrderQuantity(order.getOrderQuantity() + quantity);
-			orderrepo.save(order);
+			order = orderrepo.save(order);
+				if(order.getOrderQuantity() <= 0) {
+					removeOrder(order.getId());
+				}
 			return productService.getProducts();
 		}
 	}

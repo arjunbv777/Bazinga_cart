@@ -34,7 +34,7 @@ const CartItem = ({product}) => {
                 {
                      product.quantity === 1 &&
                      <button onClick={() => removeProduct(product)}>
-                        Remove
+                        Delete
                     </button>
                  }
                  

@@ -35,7 +35,7 @@ const Cart = () => {
                                 <h3 className="m-0 txt-right">{formatNumber(total)}</h3>
                                 <hr className="my-4"/>
                                 <div className="text-center">
-                                   <button type="button" className="btn btn-outlineprimary btn-sm" onClick={clearCart}>CLEAR</button>
+                                   <button type="button" className="btn btn-outlineprimary btn-sm" onClick={() => clearCart(cartItems)}>CLEAR</button>
                                 </div>
 
                             </div>
