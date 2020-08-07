@@ -11,7 +11,9 @@ const ProductItem = ({product}) => {
         return !!cartItems.find(item => item.id === product.id);
     }
 
-    const existingCartItem = product => {  increase(cartItems.find(item => item.id === product.id)); }
+    const existingCartItem = product => {
+        increase(cartItems.find(item => item.id === product.id));
+    }
 
     return ( 
         <div className="card card-body">

@@ -27,7 +27,6 @@ public class Orders {
 	@JoinColumn(name = "user_id")
 	User user;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	Product product;

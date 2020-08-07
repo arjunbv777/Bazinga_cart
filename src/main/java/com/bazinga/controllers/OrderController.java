@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class OrderController {
 		return ResponseEntity.ok(orderService.getOrderedProductByUSer(principal.getName()));
 	}
 
-	@PutMapping("/order")
+	@PostMapping("/order")
 	public ResponseEntity<Orders> createOrder(Principal principal, @RequestBody Product product) {
 		System.out.println("Product is " + product.toString());
 		return new ResponseEntity<Orders>(

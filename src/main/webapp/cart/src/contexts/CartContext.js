@@ -1,6 +1,5 @@
 import React, { createContext, useReducer,  useEffect } from "react";
 import { CartReducer, sumItems } from "./CartReducer";
-import { dummyProducts } from "../services/dummy";
 import axios from "axios";
 
 export const CartContext = createContext();
@@ -22,7 +21,6 @@ const CartContextProvider = ({ children }) => {
     axios
       .get("/products")
       .then((res) => {
-        console.log(res);
         res.data.forEach((e) => {
           addProductData(e);
         });
@@ -32,35 +30,38 @@ const CartContextProvider = ({ children }) => {
     axios
       .get("/orders")
       .then((res) => {
-        console.log(res);
         res.data.forEach((e) => {
           e.product.orderID = e.id;
-          addProduct(e.product);
+          addItemsToCart(e.product);
           for (let count = 1; count < e.orderQuantity; count++) {
-            increase(e.product);
+            increaseItemInCart(e.product);
           }
         });
       }, [])
       .catch((error) => console.log(error));
-  }, []);
+
+    },[]);
 
   const addProductData = (payload) => {
     dispatch({ type: "ADD_PRODUCT", payload });
   };
 
+  const addItemsToCart = (payload) => {
+    dispatch({ type: "ADD_ITEM", payload });
+  };
+
+  const increaseItemInCart = (payload) => {
+    dispatch({ type: "INCREASE", payload });
+  };
   const increase = (payload) => {
-    console.log("increse");
-   
-    console.log(payload);
     let url= "/updateorder/"+payload.orderID
     axios
     .get(url)
     .then((res) => {
-      console.log(res);
       res.data.forEach((e) => {
-        addProduct(e.product);       
+        addProductData(e);       
       });
-      dispatch({ type: "INCREASE", payload });
+      increaseItemInCart(payload );
     }, [])
     .catch((error) => console.log(error));
   };
@@ -71,9 +72,8 @@ const CartContextProvider = ({ children }) => {
     axios
     .get(url)
     .then((res) => {
-      console.log(res);
       res.data.forEach((e) => {
-        addProduct(e.product);    
+        addProductData(e);    
       });
       dispatch({ type: "DECREASE", payload });
     }, [])
@@ -82,20 +82,17 @@ const CartContextProvider = ({ children }) => {
   };
 
   const addProduct = (payload) => {
-    console.log("/order" + {payload});
     axios
-      .put("/order", payload)
+      .post("/order", payload)
       .then((res) => {
         payload.orderID = res.data.id;
-        dispatch({ type: "ADD_ITEM", payload });
-        console.log(res);
+        addItemsToCart(payload);
       }, [])
       .catch((error) => console.log(error));
 
       axios
       .get("/products")
       .then((res) => {
-        console.log(res);
         res.data.forEach((e) => {
           addProductData(e);
         });
@@ -109,18 +106,7 @@ const CartContextProvider = ({ children }) => {
     axios
     .get(url)
     .then((res) => {
-      console.log(res);
       dispatch({ type: "REMOVE_ITEM", payload });
-      res.data.forEach((e) => {
-        addProductData(e);
-      });
-    }, [])
-    .catch((error) => console.log(error));
- 
-    axios
-    .get("/products")
-    .then((res) => {
-      console.log(res);
       res.data.forEach((e) => {
         addProductData(e);
       });
