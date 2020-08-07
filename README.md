@@ -7,6 +7,10 @@ Spring JPA, Security, Rest, H2
 # Frontend
 React
 
+# TO RUN
+Just run the spring boot app the js content is auto reloaded form static folder location
+
+In case if you caught with any error in front end then follow below steps else just jump to #Backend
 # Frontend build(use letest node)
 1. cd src/main/webapp/cart
 2. npm install 
