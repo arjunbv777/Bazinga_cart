@@ -46,26 +46,26 @@ public class OrderController {
 	public ResponseEntity<List<Product>> increaseQuantityToOrder(Principal principal,
 			@PathVariable("orderid") Long orderid) {
 		System.out.println("Order id " + orderid);
-		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, 1,true), HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, 1, true), HttpStatus.OK);
 	}
 
 	@GetMapping("/removeorder/{orderid}")
 	public ResponseEntity<List<Product>> decreaseQuantityToOrder(Principal principal,
 			@PathVariable("orderid") Long orderid) {
 		System.out.println("Order id " + orderid);
-		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, -1 , false), HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(orderService.updateOrder(orderid, -1, false), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/order/{orderid}")
 	public ResponseEntity<Boolean> deleteOrder(Principal principal, @PathVariable("orderid") Long orderid) {
 		System.out.println("Order id " + orderid);
 		return new ResponseEntity(orderService.removeOrder(orderid), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/cartDetails")
 	public ResponseEntity<CartDetails> createOrder(Principal principal) {
-		
+
 		return new ResponseEntity<CartDetails>(new CartDetails(), HttpStatus.OK);
-	} 
+	}
 
 }

@@ -7,47 +7,55 @@ public class CartDetails {
 
 	private Product product;
 	private Orders order;
-	
+
 	List<Product> products = new ArrayList<>();
 	List<Orders> orders = new ArrayList<>();
-	
-	public CartDetails() {}
-	
-	public CartDetails(Orders order,List<Product> products) {
+
+	public CartDetails() {
+	}
+
+	public CartDetails(Orders order, List<Product> products) {
 		this.order = order;
 		this.products = products;
 	}
-	
-	public CartDetails(List<Orders> orders,List<Product> products) {
+
+	public CartDetails(List<Orders> orders, List<Product> products) {
 		this.orders = orders;
 		this.products = products;
 	}
-	
+
 	public Product getProduct() {
 		return product;
 	}
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public Orders getOrder() {
 		return order;
 	}
+
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
+
 	public List<Product> getProducts() {
 		return products;
 	}
+
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+
 	public List<Orders> getOrders() {
 		return orders;
 	}
+
 	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
 	}
-		
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +66,7 @@ public class CartDetails {
 		result = prime * result + ((products == null) ? 0 : products.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -89,12 +98,11 @@ public class CartDetails {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CartDetails [product=" + product + ", order=" + order + ", products=" + products + ", orders=" + orders
 				+ "]";
 	}
-	
-	
+
 }

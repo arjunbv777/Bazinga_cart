@@ -45,14 +45,14 @@ public class OrderServiceImpl implements OrderService {
 			orders.setUpdatedAt(LocalDateTime.now());
 			orders.setOrderQuantity(1);
 			productService.updateQuantity(product.getId(), true, (long) 1);
-			orders =  orderrepo.save(orders);
+			orders = orderrepo.save(orders);
 			System.out.println(orders.toString());
 		} else {
 			throw new RuntimeException("Product not available");
 		}
-		return new CartDetails(orders,  productService.getProducts());
+		return new CartDetails(orders, productService.getProducts());
 	}
-  
+
 	@Override
 	@Transactional
 	public boolean removeOrder(Long id) {
@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 			orders.setUpdatedAt(LocalDateTime.now());
 			orders.setOrderQuantity(1);
 			productService.updateQuantity(product.getId(), true, (long) 1);
-			orders =  orderrepo.save(orders);
+			orders = orderrepo.save(orders);
 			System.out.println(orders.toString());
 			return orders;
 		} else {

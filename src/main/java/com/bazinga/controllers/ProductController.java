@@ -21,5 +21,5 @@ public class ProductController {
 	public ResponseEntity<List<Product>> getProduct() {
 		return new ResponseEntity<List<Product>>(productservice.getProducts(), HttpStatus.OK);
 	}
-	
+
 }
